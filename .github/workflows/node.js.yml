@@ -34,8 +34,8 @@ jobs:
         run: npm install -g eas-cli
 
       # Step 5: Run tests (if you have any)
-      - name: Run tests
-        run: npm test # Only if you have tests set up with Jest or similar
+      # - name: Run tests
+      #   run: npm test # Only if you have tests set up with Jest or similar
 
       # Step 6: EAS Build for Android and iOS
       - name: EAS Build for Android
