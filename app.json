@@ -34,7 +34,6 @@
         "android.permission.FOREGROUND_SERVICE"
       ],
       "package": "com.dacarnage.expofire"
-      
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -46,6 +45,12 @@
           "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "a32636c0-59fa-459f-92a7-fbd34cf73b32"
+      }
+    },
+    "owner": "topnotch"
   }
 }
