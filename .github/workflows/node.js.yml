@@ -1,0 +1,39 @@
+name: React Native CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm install
+      - name: Install EAS CLI
+        run: npm install -g eas-cli
+      - name: Set up Expo Token
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: echo "EXPO_TOKEN is set"
+      - name: Run EAS Build for Android
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }} # Set the token for this step
+        run: eas build --platform android --non-interactive
+      - name: Run EAS Build for iOS
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }} # Set the token for this step
+        run: eas build --platform ios --non-interactive
