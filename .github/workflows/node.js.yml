@@ -1,0 +1,45 @@
+name: React Native CI
+
+on:
+  push:
+    branches: [ "master" ] # Adjust to "master" if that’s your main branch
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x] # Use the latest LTS version compatible with React Native
+
+    steps:
+      # Step 1: Checkout code
+      - uses: actions/checkout@v4
+
+      # Step 2: Set up Node.js
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install # or `yarn install` if you prefer Yarn
+
+      # Step 4: Set up Expo EAS CLI
+      - name: Install EAS CLI
+        run: npm install -g eas-cli
+
+      # Step 5: Run tests (if you have any)
+      - name: Run tests
+        run: npm test # Only if you have tests set up with Jest or similar
+
+      # Step 6: EAS Build for Android and iOS
+      - name: EAS Build for Android
+        run: eas build --platform android --non-interactive
+
+      - name: EAS Build for iOS
+        run: eas build --platform ios --non-interactive
