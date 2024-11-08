@@ -31,9 +31,5 @@ jobs:
         run: echo "EXPO_TOKEN is set"
       - name: Run EAS Build for Android
         env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }} # Set the token for this step
-        run: eas build --platform android --non-interactive
-      - name: Run EAS Build for iOS
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }} # Set the token for this step
-        run: eas build --platform ios --non-interactive
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: eas build --platform android --profile production --non-interactive
