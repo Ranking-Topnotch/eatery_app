@@ -16,34 +16,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      
       - name: Install dependencies
         run: npm install
-
       - name: Install EAS CLI
         run: npm install -g eas-cli
-
       - name: Set up Expo Token
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
         run: echo "EXPO_TOKEN is set"
-
-      # Run EAS Build for Android only
       - name: Run EAS Build for Android
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-        run: eas build --platform android --non-interactive
-
-      # Optionally skip iOS build
-      # Comment out or remove the following section if you don't want to run iOS builds
-      # - name: Run EAS Build for iOS
-      #   if: ${{ false }} # Disable iOS build by setting a condition that always evaluates to false
-      #   env:
-      #     EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-      #   run: eas build --platform ios --non-interactive
+        run: eas build --platform android --profile production --non-interactive
