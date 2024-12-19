@@ -19,12 +19,6 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "config": {
-        "package": "com.dacarnage.foodly",
-        "googleMaps": {
-          "apiKey": "AIzaSyAftJjsXOlEZi5T_pkybS1EPCW9olio1uI"
-        }
-      },
       "permissions": [
         "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION",
@@ -48,6 +42,13 @@
         "projectId": "a32636c0-59fa-459f-92a7-fbd34cf73b32"
       }
     },
-    "owner": "topnotch"
+    "owner": "topnotch",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/a32636c0-59fa-459f-92a7-fbd34cf73b32"
+    },
+    "ios": {}
   }
 }

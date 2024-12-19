@@ -48,42 +48,6 @@ const LoginPage = ({ navigation }) => {
     ]);
   };
 
-  // const login = async (values) => {
-  //   setLoader(true);
-  //   try {
-  //     await firebase
-  //       .auth()
-  //       .signInWithEmailAndPassword(values.email, values.password).then(() => navigation.navigate('home')).catch((error) => {
-  //         Alert.alert("Error Login", error.message, [
-  //           {
-  //             text: "Back",
-  //             onPress: () => {
-  //               setLoader(false);
-  //             },
-  //           },
-  //           {
-  //             text: "Continue",
-  //             onPress: () => {},
-  //           },
-  //           { defaultIndex: 1 },
-  //         ]);
-  //       });
-  //   } catch (error) {
-  //     Alert.alert("Error Login", error.message, [
-  //       {
-  //         text: "Back",
-  //         onPress: () => {
-  //           setLoader(false);
-  //         },
-  //       },
-  //       {
-  //         text: "Continue",
-  //         onPress: () => {},
-  //       },
-  //       { defaultIndex: 1 },
-  //     ]);
-  //   }
-  // };
 
   const loginFunc = async (values) => {
     setLoader(true);

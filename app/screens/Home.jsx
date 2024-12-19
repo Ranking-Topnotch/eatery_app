@@ -12,6 +12,7 @@ import NearbyResturant from "../components/NearbyResturant";
 import Divider from "../components/Divider";
 import NewFoodList from "../components/NewFoodList";
 import FastestDistance from "../components/FastestDistance";
+import HomeCategories from "../components/HomeCategories";
 
 const Home = () => {
   const [ selectedCategory, setSeletedCategory ] = useState(null)
@@ -40,23 +41,32 @@ const Home = () => {
               setSelectedChoice={setSelectedChoice}
             />
 
-            <View>
-              <Heading heading={'Nearby Resturants'} onPress={()=>{}}/>
+            { selectedCategory !== null && selectedSection !== null ? (
+              <View>
+                <Heading heading={`Browse ${selectedValue}`} onPress={()=>{}}/>
+
+                <HomeCategories />
+              </View>
+            ) : 
+              <View>
+                <Heading heading={'Nearby Resturants'} onPress={()=>{}}/>
             
-              <NearbyResturant />  
+                <NearbyResturant />  
 
-              <Divider />
+                <Divider />
 
-              <Heading heading={'Try Something New'} onPress={()=>{}}/>
+                <Heading heading={'Try Something New'} onPress={()=>{}}/>
             
-              <NewFoodList />
+                <NewFoodList />
 
-              <Divider />
+                <Divider />
 
-              <Heading heading={'Resturant Near you'} onPress={()=>{}}/>
+                <Heading heading={'Resturant Near you'} onPress={()=>{}}/>
             
-              <FastestDistance />
-            </View>
+                <FastestDistance />
+            </View> }
+
+            
           </ScrollView>
         </View>
       </View>

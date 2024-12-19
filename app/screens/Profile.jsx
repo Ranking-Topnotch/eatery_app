@@ -1,4 +1,4 @@
-topnotch
+
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React, { useContext, useState } from "react";
 import { COLORS, SIZES } from "../constants/theme";
@@ -12,6 +12,7 @@ import ProfileTile from "../components/ProfileTile";
 import RegistrationTile from "../components/RegistrationTile";
 
 const Profile = () => {
+  const { login, setLogin } = useContext(LoginContext)
   const [user, setUser] = useState(null)
 
   // const { user, isProfileLoading, error, refetch } = fetchProfile();

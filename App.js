@@ -14,11 +14,17 @@ import FoodNavigation from './app/navigation/FoodNavigation';
 import ResturantPage from './app/navigation/ResturantPage';
 import Resturant from './app/screens/resturant/Resturant';
 import AddRating from './app/screens/AddRating';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import SignUp  from './app/screens/SignUp'
+import { LoginContext } from './app/context/LoginContext';
+import { CartCountContext } from './app/context/CartCountContext';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [ location, setLocation ] = useState(null)
+  const [ login, setLogin ] = useState(false)
   const [ address, setAddress ] = useState(null)
+  const [ cartCount, setCartCount ] = useState(0)
   const [ restaurantObj, setRestaurantObj ] = useState(null)
   const [ error, setErrorMsg ] = useState(null)
   
@@ -54,6 +60,7 @@ export default function App() {
       //this return the coordinate of your current location
       let location = await Location.getCurrentPositionAsync({})
       setLocation(location)
+      loginStatus()
     })();
   }, [])
 
@@ -62,45 +69,65 @@ export default function App() {
     return;
   }
 
+  const loginStatus = async () => {
+    const userToken = await AsyncStorage.getItem('token')
+
+    if(userToken !== null){
+      setLogin(true)
+    }else{
+      setLogin(false)
+    }
+  }
+
 
   return (
     <UserLocationContext.Provider value={{ location, setLocation}}>
       <UserReversedGeoCode.Provider value={{ address, setAddress }}>
-        <RestaurantContext.Provider value={{ restaurantObj, setRestaurantObj }}>
-          <NavigationContainer>
-            <Stack.Navigator>
-              <Stack.Screen
-                name='bottom-navigation'
-                component={BottomTab}
-                options={{ headerShown: false }}
-              />
+        <LoginContext.Provider value={{ login, setLogin }}>
+          <CartCountContext.Provider value={{ cartCount, setCartCount }}>
+            <RestaurantContext.Provider value={{ restaurantObj, setRestaurantObj }}>
+              <NavigationContainer>
+                <Stack.Navigator>
+                  <Stack.Screen
+                    name='bottom-navigation'
+                    component={BottomTab}
+                    options={{ headerShown: false }}
+                  />
 
-              <Stack.Screen
-                name='food-nav'
-                component={FoodNavigation}
-                options={{ headerShown: false }}
-              />
+                  <Stack.Screen
+                    name='food-nav'
+                    component={FoodNavigation}
+                    options={{ headerShown: false }}
+                  />
 
-              <Stack.Screen
-                name='resturant-page'
-                component={ResturantPage}
-                options={{ headerShown: false }}
-              />
+                  <Stack.Screen
+                    name='resturant-page'
+                    component={ResturantPage}
+                    options={{ headerShown: false }}
+                  />
 
-              <Stack.Screen
-                name='resturant'
-                component={Resturant}
-                options={{ headerShown: false }}
-              />
+                  <Stack.Screen
+                    name='resturant'
+                    component={Resturant}
+                    options={{ headerShown: false }}
+                  />
 
-              <Stack.Screen
-                name='rating'
-                component={AddRating}
-                options={{ headerShown: false }}
-              />
-            </Stack.Navigator>
-          </NavigationContainer>
-        </RestaurantContext.Provider >
+                  <Stack.Screen
+                    name='signUp'
+                    component={SignUp}
+                    options={{ headerShown: false }}
+                  />
+
+                  <Stack.Screen
+                    name='rating'
+                    component={AddRating}
+                    options={{ headerShown: false }}
+                  />
+                </Stack.Navigator>
+              </NavigationContainer>
+            </RestaurantContext.Provider >
+          </CartCountContext.Provider >
+        </LoginContext.Provider >
       </UserReversedGeoCode.Provider>
     </UserLocationContext.Provider>
   );
